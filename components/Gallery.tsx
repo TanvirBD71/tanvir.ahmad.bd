@@ -6,7 +6,11 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import MotionSection from "@/components/MotionSection";
 import SectionHeading from "@/components/SectionHeading";
-import { gallery } from "@/lib/content";
+import { gallery, type GalleryItem } from "@/lib/content";
+
+function usesContainFit(fit: GalleryItem["imageFit"]) {
+  return fit === "contain";
+}
 
 export default function Gallery() {
   const [activeId, setActiveId] = useState<string | null>(null);
@@ -66,7 +70,7 @@ export default function Gallery() {
                         : i % 3 === 1
                           ? "aspect-square"
                           : "aspect-[5/4]"
-                  } ${item.imageFit === "contain" ? "bg-panel-muted" : ""}`}
+                  } ${usesContainFit(item.imageFit) ? "bg-panel-muted" : ""}`}
                   style={
                     item.imageSrc
                       ? undefined
@@ -82,7 +86,7 @@ export default function Gallery() {
                       fill
                       sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                       className={
-                        item.imageFit === "contain"
+                        usesContainFit(item.imageFit)
                           ? "object-contain"
                           : "object-cover"
                       }
@@ -116,7 +120,7 @@ export default function Gallery() {
           >
             <motion.div
               className={`relative w-full overflow-hidden rounded-3xl bg-panel text-navy shadow-2xl dark:shadow-black/50 ${
-                active.imageFit === "contain" ? "max-w-3xl" : "max-w-lg"
+                usesContainFit(active.imageFit) ? "max-w-3xl" : "max-w-lg"
               }`}
               initial={reduceMotion ? false : { opacity: 0, scale: 0.96 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -127,10 +131,10 @@ export default function Gallery() {
                 className={`relative w-full ${
                   active.aspectClass
                     ? active.aspectClass
-                    : active.imageFit === "contain"
+                    : usesContainFit(active.imageFit)
                       ? "aspect-[16/10]"
                       : "aspect-[4/3]"
-                } ${active.imageFit === "contain" ? "bg-panel-muted" : ""}`}
+                } ${usesContainFit(active.imageFit) ? "bg-panel-muted" : ""}`}
                 style={
                   active.imageSrc
                     ? undefined
@@ -146,7 +150,7 @@ export default function Gallery() {
                     fill
                     sizes="32rem"
                     className={
-                      active.imageFit === "contain"
+                      usesContainFit(active.imageFit)
                         ? "object-contain"
                         : "object-cover"
                     }
