@@ -4,6 +4,7 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { X } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import MotionSection from "@/components/MotionSection";
 import SectionHeading from "@/components/SectionHeading";
 import { gallery, type GalleryItem } from "@/lib/content";
@@ -14,8 +15,13 @@ function usesContainFit(fit: GalleryItem["imageFit"]) {
 
 export default function Gallery() {
   const [activeId, setActiveId] = useState<string | null>(null);
+  const [portalReady, setPortalReady] = useState(false);
   const reduceMotion = useReducedMotion();
   const active = gallery.items.find((item) => item.id === activeId) ?? null;
+
+  useEffect(() => {
+    setPortalReady(true);
+  }, []);
 
   useEffect(() => {
     if (!activeId) return;
@@ -29,6 +35,106 @@ export default function Gallery() {
       document.body.style.overflow = "";
     };
   }, [activeId]);
+
+  const lightbox =
+    portalReady &&
+    createPortal(
+      <AnimatePresence>
+        {active ? (
+          <motion.div
+            className="fixed inset-0 z-[100] flex items-end justify-center bg-brand-navy/80 p-0 backdrop-blur-sm sm:items-center sm:p-4"
+            initial={reduceMotion ? false : { opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={reduceMotion ? undefined : { opacity: 0 }}
+            onClick={() => setActiveId(null)}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="gallery-lightbox-title"
+          >
+            <motion.div
+              className={`relative flex max-h-[min(92dvh,100dvh)] w-full flex-col overflow-hidden rounded-t-3xl bg-panel text-navy shadow-2xl dark:shadow-black/50 sm:max-h-[90dvh] sm:rounded-3xl ${
+                usesContainFit(active.imageFit) ? "sm:max-w-3xl" : "sm:max-w-lg"
+              }`}
+              style={{ paddingTop: "env(safe-area-inset-top)" }}
+              initial={reduceMotion ? false : { opacity: 0, y: 24, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={reduceMotion ? undefined : { opacity: 0, y: 16, scale: 0.98 }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="flex items-center justify-between gap-3 border-b border-navy/10 px-4 py-3 sm:hidden">
+                <p className="truncate text-sm font-semibold text-navy">
+                  {active.title}
+                </p>
+                <button
+                  type="button"
+                  className="focus-ring inline-flex min-h-11 min-w-11 shrink-0 items-center justify-center gap-1.5 rounded-full bg-teal px-3 text-white shadow-md"
+                  onClick={() => setActiveId(null)}
+                  aria-label="Close details and return to gallery"
+                >
+                  <X className="h-5 w-5" strokeWidth={2.5} />
+                  <span className="text-sm font-semibold">Close</span>
+                </button>
+              </div>
+
+              <button
+                type="button"
+                className="focus-ring absolute right-3 top-3 z-10 hidden min-h-11 min-w-11 items-center justify-center rounded-full bg-teal text-white shadow-lg sm:inline-flex"
+                onClick={() => setActiveId(null)}
+                aria-label="Close details and return to gallery"
+              >
+                <X className="h-5 w-5" strokeWidth={2.5} />
+              </button>
+
+              <div className="min-h-0 flex-1 overflow-y-auto">
+                <div
+                  className={`relative w-full ${
+                    active.aspectClass
+                      ? active.aspectClass
+                      : usesContainFit(active.imageFit)
+                        ? "aspect-[16/10]"
+                        : "aspect-[4/3]"
+                  } ${usesContainFit(active.imageFit) ? "bg-panel-muted" : ""}`}
+                  style={
+                    active.imageSrc
+                      ? undefined
+                      : {
+                          background: `linear-gradient(145deg, ${active.color}, ${active.color}99)`,
+                        }
+                  }
+                >
+                  {active.imageSrc ? (
+                    <Image
+                      src={active.imageSrc}
+                      alt={active.imageAlt || active.title}
+                      fill
+                      sizes="(max-width: 640px) 100vw, 32rem"
+                      className={
+                        usesContainFit(active.imageFit)
+                          ? "object-contain"
+                          : "object-cover"
+                      }
+                      style={{
+                        objectPosition: active.imageObjectPosition || "center",
+                      }}
+                    />
+                  ) : null}
+                </div>
+                <div className="p-5 pb-8 sm:pb-5">
+                  <h3
+                    id="gallery-lightbox-title"
+                    className="text-xl font-bold text-navy"
+                  >
+                    {active.title}
+                  </h3>
+                  <p className="mt-2 text-muted">{active.caption}</p>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        ) : null}
+      </AnimatePresence>,
+      document.body,
+    );
 
   return (
     <MotionSection
@@ -59,7 +165,7 @@ export default function Gallery() {
                   duration: reduceMotion ? 0 : 0.4,
                   delay: reduceMotion ? 0 : i * 0.05,
                 }}
-                aria-label={`Enlarge: ${item.title}`}
+                aria-label={`View details: ${item.title}`}
               >
                 <div
                   className={`relative w-full overflow-hidden rounded-2xl ${
@@ -95,9 +201,10 @@ export default function Gallery() {
                       }}
                     />
                   ) : null}
-                  <div className="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-[#020617]/80 via-[#020617]/25 to-transparent p-4 transition group-hover:from-[#020617]/90 dark:from-black/85 dark:via-black/35 dark:group-hover:from-black/95">
-                    <p className="font-semibold text-white drop-shadow-sm">{item.title}</p>
-                    <p className="mt-1 text-sm text-white/90 drop-shadow-sm">{item.caption}</p>
+                  <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#020617]/75 via-[#020617]/35 to-transparent px-3 pb-3 pt-10 md:from-[#020617]/80 md:px-4 md:pb-4 md:pt-12 dark:from-black/80">
+                    <p className="line-clamp-2 text-sm font-semibold text-white drop-shadow-sm md:text-base">
+                      {item.title}
+                    </p>
                   </div>
                 </div>
               </motion.button>
@@ -106,78 +213,7 @@ export default function Gallery() {
         </ul>
       </div>
 
-      <AnimatePresence>
-        {active ? (
-          <motion.div
-            className="fixed inset-0 z-[60] flex items-center justify-center bg-brand-navy/75 p-4 backdrop-blur-sm"
-            initial={reduceMotion ? false : { opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={reduceMotion ? undefined : { opacity: 0 }}
-            onClick={() => setActiveId(null)}
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="gallery-lightbox-title"
-          >
-            <motion.div
-              className={`relative w-full overflow-hidden rounded-3xl bg-panel text-navy shadow-2xl dark:shadow-black/50 ${
-                usesContainFit(active.imageFit) ? "max-w-3xl" : "max-w-lg"
-              }`}
-              initial={reduceMotion ? false : { opacity: 0, scale: 0.96 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={reduceMotion ? undefined : { opacity: 0, scale: 0.96 }}
-              onClick={(e) => e.stopPropagation()}
-            >
-              <div
-                className={`relative w-full ${
-                  active.aspectClass
-                    ? active.aspectClass
-                    : usesContainFit(active.imageFit)
-                      ? "aspect-[16/10]"
-                      : "aspect-[4/3]"
-                } ${usesContainFit(active.imageFit) ? "bg-panel-muted" : ""}`}
-                style={
-                  active.imageSrc
-                    ? undefined
-                    : {
-                        background: `linear-gradient(145deg, ${active.color}, ${active.color}99)`,
-                      }
-                }
-              >
-                {active.imageSrc ? (
-                  <Image
-                    src={active.imageSrc}
-                    alt={active.imageAlt || active.title}
-                    fill
-                    sizes="32rem"
-                    className={
-                      usesContainFit(active.imageFit)
-                        ? "object-contain"
-                        : "object-cover"
-                    }
-                    style={{
-                      objectPosition: active.imageObjectPosition || "center",
-                    }}
-                  />
-                ) : null}
-              </div>
-              <div className="p-5">
-                <h3 id="gallery-lightbox-title" className="text-xl font-bold text-navy">
-                  {active.title}
-                </h3>
-                <p className="mt-2 text-muted">{active.caption}</p>
-              </div>
-              <button
-                type="button"
-                className="focus-ring absolute right-3 top-3 inline-flex rounded-full bg-panel/90 p-2 text-navy shadow"
-                onClick={() => setActiveId(null)}
-                aria-label="Close lightbox"
-              >
-                <X className="h-5 w-5" />
-              </button>
-            </motion.div>
-          </motion.div>
-        ) : null}
-      </AnimatePresence>
+      {lightbox}
     </MotionSection>
   );
 }
