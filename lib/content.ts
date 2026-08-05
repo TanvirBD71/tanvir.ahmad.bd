@@ -193,7 +193,12 @@ export type GalleryItem = {
   imageFit?: "cover" | "contain";
 };
 
-export const gallery = {
+export const gallery: {
+  eyebrow: string;
+  title: string;
+  description: string;
+  items: GalleryItem[];
+} = {
   eyebrow: "Moments",
   title: "Gallery",
   description: "Clinical practice, campaigns, workshops, and community moments from the field.",
@@ -303,7 +308,7 @@ export const gallery = {
       imageAlt:
         "Volunteer for Bangladesh collage featuring Tanvir Ahmad in community and public health work",
     },
-  ] satisfies GalleryItem[],
+  ],
 };
 
 export const certifications = {
