@@ -68,6 +68,14 @@ export const skills = {
       name: "Scrub Nurse assistance (instruments, sutures, and sponges)",
       icon: "Activity" as const,
     },
+     {
+      name: "Freelancing)",
+      icon: "Code" as const,
+    },
+    {
+      name: "Adobe Stock Designer)",
+      icon: "Design" as const,
+    },
   ],
   languages: [
     {
@@ -100,10 +108,7 @@ export const education = {
       period: "2021 – 2026",
       institution: "Nursing and Midwifery College, Tangail",
       credential: "Diploma in Nursing Science & Midwifery",
-      detail: "Result: 
-        1st Year: CGPA 3.89
-        2nd Year: CGPA 3.92
-        3rd Year: CGPA 4.00",
+      detail: "Result: 1st Year: CGPA 3.89 | 2nd Year: CGPA 3.92 | 3rd Year: CGPA 4.00",
     },
     {
       period: "2021",
