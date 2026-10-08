@@ -69,12 +69,12 @@ export const skills = {
       icon: "Activity" as const,
     },
      {
-      name: "Freelancing)",
-      icon: "Code" as const,
+      name: "Freelancing",
+      icon: "ShieldCheck" as const,
     },
     {
-      name: "Adobe Stock Designer)",
-      icon: "Design" as const,
+      name: "Adobe Stock Designer",
+      icon: "ShieldCheck" as const,
     },
   ],
   languages: [
