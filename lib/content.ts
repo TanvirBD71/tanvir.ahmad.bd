@@ -126,7 +126,7 @@ export const education = {
 };
 
 export const experience = {
-  eyebrow: "Clinical journey",
+  eyebrow: "Clinical Journey & Other Experience",
   title: "Experience",
   description: "Hands-on roles that strengthened bedside manner and clinical judgment.",
   items: [
@@ -150,6 +150,13 @@ export const experience = {
       role: "Clinical Practice (3 year)",
       detail:
         "Completed three years of clinical practice, including a specialized Operating Theater (OT) rotation.",
+    },
+    {
+      period: "August 2022 – November 2022",
+      organization: "Bismillah Computer Training Center, Tangail",
+      role: "Office Room Computer Operator",
+      detail:
+        "Work as a office room computer operator for 4 months",
     },
   ],
 };
