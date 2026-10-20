@@ -16,6 +16,37 @@ import References from "@/components/References";
 import Skills from "@/components/Skills";
 import Volunteering from "@/components/Volunteering";
 
+export const metadata: Metadata = {
+  title: "Tanvir Ahmad | Registered Nurse in Tangail, Bangladesh",
+  description: "Portfolio of Tanvir Ahmad, a dedicated Registered Nurse in Tangail blending compassionate patient-centered care, operation theater clinical skills, and community leadership.",
+  keywords: [
+    "Tanvir Ahmad", 
+    "Registered Nurse Tangail", 
+    "Nurse Tanvir Ahmad", 
+    "Operation Theater Nurse", 
+    "Clinical Nurse Bangladesh", 
+    "Nursilo Founder", 
+    "Patient-Centered Care"
+  ],
+  authors: [{ name: "Tanvir Ahmad" }],
+  openGraph: {
+    title: "Tanvir Ahmad | Registered Nurse Portfolio",
+    description: "Discover the clinical journey, skills, and community impact of Tanvir Ahmad, a Registered Nurse based in Tangail, Bangladesh.",
+    url: "https://tanvir.ahmad.bd/",
+    siteName: "Tanvir Ahmad Portfolio",
+    images: [
+      {
+        url: "/images/Tanvir_Headshot.png", // Ensure you have an image at public/og-image.jpg
+        width: 1200,
+        height: 630,
+        alt: "Tanvir Ahmad - Registered Nurse",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+};
+
 export default function Home() {
   return (
     <>
