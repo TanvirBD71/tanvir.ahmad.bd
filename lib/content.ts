@@ -1,8 +1,6 @@
 export const site = {
   name: "Tanvir Ahmad",
   title: "Registered Nurse",
-  rnRegistrationNumber: "105358",
-  rnVerificationUrl: "https://bncdb.bnmc.gov.bd/bnc/221260id.html",
   tagline:
     "Dedicated nursing professional and community leader blending compassionate patient care with a passion for digital design and civic engagement.",
   email: "tanvirnurse@gmail.com",
