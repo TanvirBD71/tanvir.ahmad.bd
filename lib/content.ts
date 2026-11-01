@@ -88,13 +88,13 @@ export const skills = {
     },
     {
       name: "English",
-      level: 85,
+      level: 75,
       label: "Proficient",
       note: "Proficient in reading, writing & speaking",
     },
     {
       name: "Hindi",
-      level: 40,
+      level: 50,
       label: "Foundational",
       note: "Foundational vocabulary and professional caregiving terminology",
     },
