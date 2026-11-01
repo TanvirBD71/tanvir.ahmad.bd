@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import About from "@/components/About";
 import BackToTop from "@/components/BackToTop";
 import Certifications from "@/components/Certifications";
