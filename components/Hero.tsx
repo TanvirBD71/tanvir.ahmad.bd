@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
-import { ArrowRight, Download } from "lucide-react";
+import { ArrowRight, Download, ShieldCheck } from "lucide-react";
 import Image from "next/image";
 import HeroFloatingIcons from "@/components/HeroFloatingIcons";
 import HeroSpecialParticles from "@/components/HeroSpecialParticles";
@@ -115,6 +115,31 @@ export default function Hero() {
               </li>
             ))}
           </motion.ul>
+
+          <motion.div
+            className="mt-4 flex flex-wrap items-center gap-3"
+            initial={reduceMotion ? false : { opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: reduceMotion ? 0 : 0.5, delay: reduceMotion ? 0 : 0.3 }}
+          >
+            <p
+              className="glass-panel rounded-xl px-3 py-2 text-sm"
+              style={{ color: "var(--teal-dark)" }}
+            >
+              <span className="font-medium">RN Registration No.</span>{" "}
+              <span className="font-bold">{site.rnRegistrationNumber}</span>
+            </p>
+            <a
+              href={site.rnVerificationUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="focus-ring glass-panel inline-flex items-center gap-2 rounded-xl px-3 py-2 text-sm font-semibold shadow-sm transition hover:border-teal/60 hover:shadow-md hover:shadow-teal/10"
+              style={{ color: "var(--teal-dark)" }}
+            >
+              <ShieldCheck className="h-4 w-4" aria-hidden="true" />
+              Verify RN Number
+            </a>
+          </motion.div>
         </div>
 
         <motion.div
