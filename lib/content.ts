@@ -66,6 +66,14 @@ export const skills = {
       icon: "Pill" as const,
     },
     {
+      name: "Vital signs monitoring",
+      icon: "Thermometer" as const,
+    },
+    {
+      name: "First aid",
+      icon: "Cross" as const,
+    },
+    {
       name: "Medical documentation",
       icon: "ClipboardList" as const,
     },
@@ -76,6 +84,18 @@ export const skills = {
     {
       name: "Infection prevention & control",
       icon: "ShieldCheck" as const,
+    },
+    {
+      name: "Oxygen therapy",
+      icon: "Wind" as const,
+    },
+    {
+      name: "Wound care",
+      icon: "Bandage" as const,
+    },
+    {
+      name: "Pharmacology",
+      icon: "FlaskConical" as const,
     },
     {
       name: "Sterile field preparation",
@@ -106,6 +126,26 @@ export const skills = {
       icon: "Baby" as const,
     },
     {
+      name: "Palliative care",
+      icon: "Heart" as const,
+    },
+    {
+      name: "Oncology nursing",
+      icon: "Ribbon" as const,
+    },
+    {
+      name: "Community health nursing",
+      icon: "Globe" as const,
+    },
+    {
+      name: "Patient advocacy",
+      icon: "Megaphone" as const,
+    },
+    {
+      name: "Nursing education",
+      icon: "GraduationCap" as const,
+    },
+    {
       name: "Multidisciplinary teamwork",
       icon: "Users" as const,
     },
@@ -132,7 +172,7 @@ export const skills = {
       name: "English",
       level: 75,
       label: "Proficient",
-      note: "Proficient in reading, writing & speaking",
+      note: "Proficient in reading, writing & speaking · Duolingo English score 129",
     },
     {
       name: "Hindi",
@@ -233,6 +273,14 @@ export const volunteering = {
       detail:
         "Leads Nursilo's advocacy for nursing education and training, including policy discussions and healthcare reform initiatives.",
       icon: "Palette" as const,
+    },
+    {
+      role: "Medical Personnel",
+      organization: "Moshal Alo Trust",
+      period: "August 2024",
+      detail:
+        "Provided patient care at the Bonnyar Kanna 24 medical camp, a flood-relief effort with Moshal Alo Trust.",
+      icon: "HandHeart" as const,
     },
   ],
 };
@@ -407,6 +455,38 @@ export const certifications = {
         "Connecting the Dots: Strengthening Volunteer for Bangladesh regional youth development workshop",
       issuer: "Volunteer for Bangladesh",
       year: "2026",
+    },
+    // Added from LinkedIn (Nov 2026) — strongest clinical certificates first.
+    {
+      title: "Advanced Cardiovascular Life Support (ACLS)",
+      issuer: "National Health Care Provider Solutions",
+      year: "January 2025",
+    },
+    {
+      title: "Introduction to Oxygen Therapy",
+      issuer: "World Health Organization",
+      year: "December 2024",
+    },
+    {
+      title:
+        "Mastering the Literature Review: Strategies for EBP, QI, and Research",
+      issuer: "Henry Ford Health & Michigan State University",
+      year: "August 2025",
+    },
+    {
+      title: "Bereavement Care",
+      issuer: "The Royal College of Midwives",
+      year: "October 2024",
+    },
+    {
+      title: "The Primary Palliative Care Special Edition",
+      issuer: "icddr,b",
+      year: "November 2024",
+    },
+    {
+      title: "Introduction to Good Clinical Laboratory Practice",
+      issuer: "The Global Health Network",
+      year: "September 2024",
     },
   ],
 };
