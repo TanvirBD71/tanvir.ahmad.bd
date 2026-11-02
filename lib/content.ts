@@ -34,13 +34,13 @@ export const about = {
   eyebrow: "About",
   title: "Caring with purpose",
   summary:
-    "As an registered nurse, I focus on applying clinical knowledge, patient care skills, and dedication to providing compassionate healthcare. My primary goal is to grow professionally while contributing to the well-being of patients and supporting the collaborative healthcare team. I also have a strong passion for exploring AI tools, creative writing, and organizing student events to foster community engagement.",
+    "As a registered nurse, I focus on applying clinical knowledge, patient care skills, and dedication to providing compassionate healthcare. My primary goal is to grow professionally while contributing to the well-being of patients and supporting the collaborative healthcare team. I also have a strong passion for exploring AI tools, creative writing, and organizing student events to foster community engagement.",
   philosophy: [
     "Patient-centered care delivered with a compassionate approach.",
     "Adaptability and resilience in dynamic healthcare settings.",
     "Strong critical thinking coupled with accurate medical documentation.",
     "Effective communication and seamless teamwork within medical units.",
-    "Strict adherence to infection control knowledge and safety protocols.",
+    "Strict adherence to infection control practices and safety protocols.",
   ],
 };
 
@@ -70,13 +70,16 @@ export const skills = {
       name: "Scrub Nurse assistance (instruments, sutures, and sponges)",
       icon: "Activity" as const,
     },
-     {
+  ],
+  // Creative work sits in its own group so the clinical list stays clinical.
+  other: [
+    {
       name: "Freelancing",
-      icon: "ShieldCheck" as const,
+      icon: "Briefcase" as const,
     },
     {
       name: "Adobe Stock Designer",
-      icon: "ShieldCheck" as const,
+      icon: "Palette" as const,
     },
   ],
   languages: [
@@ -84,7 +87,7 @@ export const skills = {
       name: "Bengali",
       level: 100,
       label: "Native",
-      note: "Native",
+      note: "Native fluency in reading, writing & speaking",
     },
     {
       name: "English",
@@ -135,7 +138,7 @@ export const experience = {
     {
       period: "April 2026 – September 2026",
       organization: "Tangail Medical College, Tangail",
-      role: "Intern Nurse (6 Month)",
+      role: "Intern Nurse (6-Month)",
       detail:
         "Completed a six-month internship applying clinical knowledge and patient care skills in a teaching hospital setting.",
     },
@@ -158,7 +161,7 @@ export const experience = {
       organization: "Bismillah Computer Training Center, Tangail",
       role: "Office Room Computer Operator",
       detail:
-        "Work as a office room computer operator for 4 months",
+        "Worked as an office room computer operator for 4 months.",
     },
   ],
 };
@@ -189,7 +192,7 @@ export const volunteering = {
       organization: "Nursilo",
       period: "Present",
       detail:
-        "Advocated for nursing education and training, collaborated with Nursilo in policy discussions, training, and healthcare reform initiatives.",
+        "Leads Nursilo's advocacy for nursing education and training, including policy discussions and healthcare reform initiatives.",
       icon: "Palette" as const,
     },
   ],

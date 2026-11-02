@@ -3,7 +3,7 @@ import { gallery, site } from "@/lib/content";
 
 // Update this date whenever the page content in lib/content.ts changes,
 // so search engines know when the page was last meaningfully modified.
-const lastModified = new Date("2026-11-02");
+const lastModified = new Date("2026-11-03");
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const images = [

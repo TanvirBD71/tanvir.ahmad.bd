@@ -3,7 +3,9 @@
 import { motion, useReducedMotion } from "framer-motion";
 import {
   Activity,
+  Briefcase,
   HeartPulse,
+  Palette,
   Pill,
   ShieldCheck,
   Stethoscope,
@@ -19,6 +21,8 @@ const iconMap: Record<string, LucideIcon> = {
   HeartPulse,
   Pill,
   ShieldCheck,
+  Briefcase,
+  Palette,
 };
 
 export default function Skills() {
@@ -39,7 +43,7 @@ export default function Skills() {
           description={skills.description}
         />
 
-        <ul className="mb-12 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 lg:gap-4">
+        <ul className="mb-8 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 lg:gap-4">
           {skills.clinical.map((skill, i) => {
             const Icon = iconMap[skill.icon] ?? Stethoscope;
             return (
@@ -64,6 +68,39 @@ export default function Skills() {
             );
           })}
         </ul>
+
+        {skills.other.length > 0 && (
+          <div className="mb-12">
+            <h3 className="mb-4 text-lg font-semibold text-navy">
+              Design &amp; freelance
+            </h3>
+            <ul className="flex flex-wrap gap-3">
+              {skills.other.map((skill, i) => {
+                const Icon = iconMap[skill.icon] ?? Briefcase;
+                return (
+                  <motion.li
+                    key={skill.name}
+                    className="glass-panel inline-flex items-center gap-2.5 rounded-2xl px-4 py-3 transition hover:border-teal/30"
+                    initial={reduceMotion ? false : { opacity: 0, y: 12 }}
+                    whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.2 }}
+                    transition={{
+                      duration: reduceMotion ? 0 : 0.35,
+                      delay: reduceMotion ? 0 : i * 0.04,
+                    }}
+                  >
+                    <span className="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-teal/10 text-teal">
+                      <Icon className="h-4 w-4" aria-hidden="true" />
+                    </span>
+                    <span className="text-sm font-semibold text-navy">
+                      {skill.name}
+                    </span>
+                  </motion.li>
+                );
+              })}
+            </ul>
+          </div>
+        )}
 
         <div className="glass-panel rounded-3xl p-6 md:p-8">
           <h3 className="mb-6 text-lg font-semibold text-navy">Languages</h3>
