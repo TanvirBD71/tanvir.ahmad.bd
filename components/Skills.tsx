@@ -69,7 +69,9 @@ type SkillItem = {
 };
 
 // One clean chip style for every skill group (clinical, design & freelance):
-// a small icon tile and the skill name in a single pill.
+// a small icon tile and the skill name in a single pill. Chips were made
+// compact in Nov 2026 (smaller tile, padding and gaps) because the clinical
+// list had grown long enough to dominate the scroll on phones.
 function SkillGroup({
   title,
   items,
@@ -85,26 +87,27 @@ function SkillGroup({
 
   return (
     <div className={className}>
-      <h3 className="mb-4 text-lg font-semibold text-navy">{title}</h3>
-      <ul className="flex flex-wrap gap-3">
+      <h3 className="mb-3 text-lg font-semibold text-navy">{title}</h3>
+      <ul className="flex flex-wrap gap-2">
         {items.map((skill, i) => {
           const Icon = iconMap[skill.icon] ?? Stethoscope;
           return (
             <motion.li
               key={skill.name}
-              className="glass-panel inline-flex max-w-full items-center gap-2.5 rounded-2xl px-4 py-3 transition hover:border-teal/30"
+              className="glass-panel inline-flex max-w-full items-center gap-2 rounded-xl px-3 py-2 transition hover:border-teal/30"
               initial={reduceMotion ? false : { opacity: 0, y: 12 }}
               whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.2 }}
               transition={{
                 duration: reduceMotion ? 0 : 0.35,
-                delay: reduceMotion ? 0 : i * 0.04,
+                // Cap the stagger so the last chips don't fade in late.
+                delay: reduceMotion ? 0 : Math.min(i * 0.03, 0.3),
               }}
             >
-              <span className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-teal/10 text-teal">
-                <Icon className="h-4 w-4" aria-hidden="true" />
+              <span className="inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-md bg-teal/10 text-teal">
+                <Icon className="h-3.5 w-3.5" aria-hidden="true" />
               </span>
-              <span className="text-sm font-semibold leading-snug text-navy">
+              <span className="text-[13px] font-semibold leading-snug text-navy sm:text-sm">
                 {skill.name}
               </span>
             </motion.li>
@@ -137,14 +140,14 @@ export default function Skills() {
           title="Clinical skills"
           items={skills.clinical}
           reduceMotion={reduceMotion}
-          className={skills.other.length > 0 ? "mb-8" : "mb-12"}
+          className={skills.other.length > 0 ? "mb-6" : "mb-8"}
         />
 
         <SkillGroup
           title="Design & freelance"
           items={skills.other}
           reduceMotion={reduceMotion}
-          className="mb-12"
+          className="mb-8"
         />
 
         <div className="glass-panel rounded-3xl p-6 md:p-8">

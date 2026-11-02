@@ -49,17 +49,14 @@ export const skills = {
   title: "Skills & languages",
   description:
     "Clinical competencies paired with multilingual communication for inclusive caregiving.",
-  // Short chip labels (max 4 words). Long skills are split into two chips,
-  // and extra chips come from the About philosophy and Gallery captions,
-  // so every chip is something the site already talks about.
+  // Short chip labels. Trimmed from 24 to 17 in Nov 2026: the list had
+  // grown long enough to dominate the scroll on phones. Overlapping chips
+  // were merged or dropped (see APPLY notes) — nothing here is lost that
+  // isn't already covered by another chip or another section of the site.
   clinical: [
     {
       name: "Patient-centered care",
       icon: "HeartHandshake" as const,
-    },
-    {
-      name: "Clinical procedures",
-      icon: "Stethoscope" as const,
     },
     {
       name: "Medication administration",
@@ -94,10 +91,6 @@ export const skills = {
       icon: "Bandage" as const,
     },
     {
-      name: "Pharmacology",
-      icon: "FlaskConical" as const,
-    },
-    {
       name: "Sterile field preparation",
       icon: "Sparkles" as const,
     },
@@ -110,40 +103,20 @@ export const skills = {
       icon: "Activity" as const,
     },
     {
-      name: "Instruments, sutures & sponges",
-      icon: "Scissors" as const,
-    },
-    {
       name: "Emergency ward care",
       icon: "Ambulance" as const,
     },
     {
-      name: "Pediatric ward care",
-      icon: "Syringe" as const,
-    },
-    {
-      name: "Neonatal care (SCANU)",
+      name: "Pediatric & neonatal care",
       icon: "Baby" as const,
     },
     {
-      name: "Palliative care",
-      icon: "Heart" as const,
-    },
-    {
-      name: "Oncology nursing",
+      name: "Palliative & oncology care",
       icon: "Ribbon" as const,
     },
     {
       name: "Community health nursing",
       icon: "Globe" as const,
-    },
-    {
-      name: "Patient advocacy",
-      icon: "Megaphone" as const,
-    },
-    {
-      name: "Nursing education",
-      icon: "GraduationCap" as const,
     },
     {
       name: "Multidisciplinary teamwork",
