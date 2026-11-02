@@ -20,12 +20,12 @@ export const site = {
 
 export const navLinks = [
   { href: "#about", label: "About" },
+  { href: "#experience", label: "Experience" },
   { href: "#skills", label: "Skills" },
   { href: "#education", label: "Education" },
-  { href: "#experience", label: "Experience" },
+  { href: "#certifications", label: "Certifications" },
   { href: "#volunteering", label: "Volunteering" },
   { href: "#gallery", label: "Gallery" },
-  { href: "#certifications", label: "Certifications" },
   { href: "#references", label: "References" },
   { href: "#contact", label: "Contact" },
 ] as const;
@@ -49,26 +49,65 @@ export const skills = {
   title: "Skills & languages",
   description:
     "Clinical competencies paired with multilingual communication for inclusive caregiving.",
+  // Short chip labels (max 4 words). Long skills are split into two chips,
+  // and extra chips come from the About philosophy and Gallery captions,
+  // so every chip is something the site already talks about.
   clinical: [
     {
-      name: "Clinical procedures and medication administration",
-      icon: "Pill" as const,
+      name: "Patient-centered care",
+      icon: "HeartHandshake" as const,
     },
     {
-      name: "BLS and ACLS protocols",
-      icon: "HeartPulse" as const,
-    },
-    {
-      name: "Sterile field preparation (General Surgery, Orthopedics, Obstetrics/Gynecology)",
-      icon: "ShieldCheck" as const,
-    },
-    {
-      name: "Surgical scrubbing, gowning, and gloving techniques",
+      name: "Clinical procedures",
       icon: "Stethoscope" as const,
     },
     {
-      name: "Scrub Nurse assistance (instruments, sutures, and sponges)",
+      name: "Medication administration",
+      icon: "Pill" as const,
+    },
+    {
+      name: "Medical documentation",
+      icon: "ClipboardList" as const,
+    },
+    {
+      name: "BLS & ACLS protocols",
+      icon: "HeartPulse" as const,
+    },
+    {
+      name: "Infection prevention & control",
+      icon: "ShieldCheck" as const,
+    },
+    {
+      name: "Sterile field preparation",
+      icon: "Sparkles" as const,
+    },
+    {
+      name: "Scrubbing, gowning & gloving",
+      icon: "Hand" as const,
+    },
+    {
+      name: "Scrub nurse assistance",
       icon: "Activity" as const,
+    },
+    {
+      name: "Instruments, sutures & sponges",
+      icon: "Scissors" as const,
+    },
+    {
+      name: "Emergency ward care",
+      icon: "Ambulance" as const,
+    },
+    {
+      name: "Pediatric ward care",
+      icon: "Syringe" as const,
+    },
+    {
+      name: "Neonatal care (SCANU)",
+      icon: "Baby" as const,
+    },
+    {
+      name: "Multidisciplinary teamwork",
+      icon: "Users" as const,
     },
   ],
   // Creative work sits in its own group so the clinical list stays clinical.

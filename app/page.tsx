@@ -127,12 +127,12 @@ export default function Home() {
           <main id="main-content" className="relative z-10 flex-1">
             <Hero />
             <About />
+            <ExperienceTimeline />
             <Skills />
             <EducationTimeline />
-            <ExperienceTimeline />
+            <Certifications />
             <Volunteering />
             <Gallery />
-            <Certifications />
             <References />
             <Contact />
           </main>

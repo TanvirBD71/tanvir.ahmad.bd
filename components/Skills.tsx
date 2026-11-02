@@ -3,12 +3,21 @@
 import { motion, useReducedMotion } from "framer-motion";
 import {
   Activity,
+  Ambulance,
+  Baby,
   Briefcase,
+  ClipboardList,
+  Hand,
+  HeartHandshake,
   HeartPulse,
   Palette,
   Pill,
+  Scissors,
   ShieldCheck,
+  Sparkles,
   Stethoscope,
+  Syringe,
+  Users,
   type LucideIcon,
 } from "lucide-react";
 import MotionSection from "@/components/MotionSection";
@@ -23,6 +32,15 @@ const iconMap: Record<string, LucideIcon> = {
   ShieldCheck,
   Briefcase,
   Palette,
+  HeartHandshake,
+  ClipboardList,
+  Sparkles,
+  Hand,
+  Scissors,
+  Ambulance,
+  Syringe,
+  Baby,
+  Users,
 };
 
 type SkillItem = {
