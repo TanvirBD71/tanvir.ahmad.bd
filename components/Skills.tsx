@@ -25,6 +25,58 @@ const iconMap: Record<string, LucideIcon> = {
   Palette,
 };
 
+type SkillItem = {
+  name: string;
+  icon: string;
+};
+
+// One clean chip style for every skill group (clinical, design & freelance):
+// a small icon tile and the skill name in a single pill.
+function SkillGroup({
+  title,
+  items,
+  reduceMotion,
+  className,
+}: {
+  title: string;
+  items: SkillItem[];
+  reduceMotion: boolean | null;
+  className?: string;
+}) {
+  if (items.length === 0) return null;
+
+  return (
+    <div className={className}>
+      <h3 className="mb-4 text-lg font-semibold text-navy">{title}</h3>
+      <ul className="flex flex-wrap gap-3">
+        {items.map((skill, i) => {
+          const Icon = iconMap[skill.icon] ?? Stethoscope;
+          return (
+            <motion.li
+              key={skill.name}
+              className="glass-panel inline-flex max-w-full items-center gap-2.5 rounded-2xl px-4 py-3 transition hover:border-teal/30"
+              initial={reduceMotion ? false : { opacity: 0, y: 12 }}
+              whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{
+                duration: reduceMotion ? 0 : 0.35,
+                delay: reduceMotion ? 0 : i * 0.04,
+              }}
+            >
+              <span className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-teal/10 text-teal">
+                <Icon className="h-4 w-4" aria-hidden="true" />
+              </span>
+              <span className="text-sm font-semibold leading-snug text-navy">
+                {skill.name}
+              </span>
+            </motion.li>
+          );
+        })}
+      </ul>
+    </div>
+  );
+}
+
 export default function Skills() {
   const reduceMotion = useReducedMotion();
 
@@ -43,64 +95,19 @@ export default function Skills() {
           description={skills.description}
         />
 
-        <ul className="mb-8 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 lg:gap-4">
-          {skills.clinical.map((skill, i) => {
-            const Icon = iconMap[skill.icon] ?? Stethoscope;
-            return (
-              <motion.li
-                key={skill.name}
-                className="glass-panel flex flex-col items-start gap-3 rounded-2xl p-4 transition hover:border-teal/30 md:p-5"
-                initial={reduceMotion ? false : { opacity: 0, y: 16 }}
-                whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.2 }}
-                transition={{
-                  duration: reduceMotion ? 0 : 0.4,
-                  delay: reduceMotion ? 0 : i * 0.04,
-                }}
-              >
-                <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-teal/10 text-teal">
-                  <Icon className="h-5 w-5" aria-hidden="true" />
-                </span>
-                <span className="text-sm font-semibold text-navy md:text-base">
-                  {skill.name}
-                </span>
-              </motion.li>
-            );
-          })}
-        </ul>
+        <SkillGroup
+          title="Clinical skills"
+          items={skills.clinical}
+          reduceMotion={reduceMotion}
+          className={skills.other.length > 0 ? "mb-8" : "mb-12"}
+        />
 
-        {skills.other.length > 0 && (
-          <div className="mb-12">
-            <h3 className="mb-4 text-lg font-semibold text-navy">
-              Design &amp; freelance
-            </h3>
-            <ul className="flex flex-wrap gap-3">
-              {skills.other.map((skill, i) => {
-                const Icon = iconMap[skill.icon] ?? Briefcase;
-                return (
-                  <motion.li
-                    key={skill.name}
-                    className="glass-panel inline-flex items-center gap-2.5 rounded-2xl px-4 py-3 transition hover:border-teal/30"
-                    initial={reduceMotion ? false : { opacity: 0, y: 12 }}
-                    whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
-                    viewport={{ once: true, amount: 0.2 }}
-                    transition={{
-                      duration: reduceMotion ? 0 : 0.35,
-                      delay: reduceMotion ? 0 : i * 0.04,
-                    }}
-                  >
-                    <span className="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-teal/10 text-teal">
-                      <Icon className="h-4 w-4" aria-hidden="true" />
-                    </span>
-                    <span className="text-sm font-semibold text-navy">
-                      {skill.name}
-                    </span>
-                  </motion.li>
-                );
-              })}
-            </ul>
-          </div>
-        )}
+        <SkillGroup
+          title="Design & freelance"
+          items={skills.other}
+          reduceMotion={reduceMotion}
+          className="mb-12"
+        />
 
         <div className="glass-panel rounded-3xl p-6 md:p-8">
           <h3 className="mb-6 text-lg font-semibold text-navy">Languages</h3>
