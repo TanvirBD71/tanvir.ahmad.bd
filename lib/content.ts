@@ -20,12 +20,12 @@ export const site = {
 
 export const navLinks = [
   { href: "#about", label: "About" },
+  { href: "#experience", label: "Experience" },
   { href: "#skills", label: "Skills" },
   { href: "#education", label: "Education" },
-  { href: "#experience", label: "Experience" },
+  { href: "#certifications", label: "Certifications" },
   { href: "#volunteering", label: "Volunteering" },
   { href: "#gallery", label: "Gallery" },
-  { href: "#certifications", label: "Certifications" },
   { href: "#references", label: "References" },
   { href: "#contact", label: "Contact" },
 ] as const;
@@ -34,13 +34,13 @@ export const about = {
   eyebrow: "About",
   title: "Caring with purpose",
   summary:
-    "As an registered nurse, I focus on applying clinical knowledge, patient care skills, and dedication to providing compassionate healthcare. My primary goal is to grow professionally while contributing to the well-being of patients and supporting the collaborative healthcare team. I also have a strong passion for exploring AI tools, creative writing, and organizing student events to foster community engagement.",
+    "As a registered nurse, I focus on applying clinical knowledge, patient care skills, and dedication to providing compassionate healthcare. My primary goal is to grow professionally while contributing to the well-being of patients and supporting the collaborative healthcare team. I also have a strong passion for exploring AI tools, creative writing, and organizing student events to foster community engagement.",
   philosophy: [
     "Patient-centered care delivered with a compassionate approach.",
     "Adaptability and resilience in dynamic healthcare settings.",
     "Strong critical thinking coupled with accurate medical documentation.",
     "Effective communication and seamless teamwork within medical units.",
-    "Strict adherence to infection control knowledge and safety protocols.",
+    "Strict adherence to infection control practices and safety protocols.",
   ],
 };
 
@@ -49,34 +49,89 @@ export const skills = {
   title: "Skills & languages",
   description:
     "Clinical competencies paired with multilingual communication for inclusive caregiving.",
+  // Short chip labels. Trimmed from 24 to 17 in Nov 2026: the list had
+  // grown long enough to dominate the scroll on phones. Overlapping chips
+  // were merged or dropped (see APPLY notes) — nothing here is lost that
+  // isn't already covered by another chip or another section of the site.
   clinical: [
     {
-      name: "Clinical procedures and medication administration",
+      name: "Patient-centered care",
+      icon: "HeartHandshake" as const,
+    },
+    {
+      name: "Medication administration",
       icon: "Pill" as const,
     },
     {
-      name: "BLS and ACLS protocols",
+      name: "Vital signs monitoring",
+      icon: "Thermometer" as const,
+    },
+    {
+      name: "First aid",
+      icon: "Cross" as const,
+    },
+    {
+      name: "Medical documentation",
+      icon: "ClipboardList" as const,
+    },
+    {
+      name: "BLS & ACLS protocols",
       icon: "HeartPulse" as const,
     },
     {
-      name: "Sterile field preparation (General Surgery, Orthopedics, Obstetrics/Gynecology)",
+      name: "Infection prevention & control",
       icon: "ShieldCheck" as const,
     },
     {
-      name: "Surgical scrubbing, gowning, and gloving techniques",
-      icon: "Stethoscope" as const,
+      name: "Oxygen therapy",
+      icon: "Wind" as const,
     },
     {
-      name: "Scrub Nurse assistance (instruments, sutures, and sponges)",
+      name: "Wound care",
+      icon: "Bandage" as const,
+    },
+    {
+      name: "Sterile field preparation",
+      icon: "Sparkles" as const,
+    },
+    {
+      name: "Scrubbing, gowning & gloving",
+      icon: "Hand" as const,
+    },
+    {
+      name: "Scrub nurse assistance",
       icon: "Activity" as const,
     },
-     {
+    {
+      name: "Emergency ward care",
+      icon: "Ambulance" as const,
+    },
+    {
+      name: "Pediatric & neonatal care",
+      icon: "Baby" as const,
+    },
+    {
+      name: "Palliative & oncology care",
+      icon: "Ribbon" as const,
+    },
+    {
+      name: "Community health nursing",
+      icon: "Globe" as const,
+    },
+    {
+      name: "Multidisciplinary teamwork",
+      icon: "Users" as const,
+    },
+  ],
+  // Creative work sits in its own group so the clinical list stays clinical.
+  other: [
+    {
       name: "Freelancing",
-      icon: "ShieldCheck" as const,
+      icon: "Briefcase" as const,
     },
     {
       name: "Adobe Stock Designer",
-      icon: "ShieldCheck" as const,
+      icon: "Palette" as const,
     },
   ],
   languages: [
@@ -84,13 +139,13 @@ export const skills = {
       name: "Bengali",
       level: 100,
       label: "Native",
-      note: "Native",
+      note: "Native fluency in reading, writing & speaking",
     },
     {
       name: "English",
       level: 75,
       label: "Proficient",
-      note: "Proficient in reading, writing & speaking",
+      note: "Proficient in reading, writing & speaking · Duolingo English score 129",
     },
     {
       name: "Hindi",
@@ -135,7 +190,7 @@ export const experience = {
     {
       period: "April 2026 – September 2026",
       organization: "Tangail Medical College, Tangail",
-      role: "Intern Nurse (6 Month)",
+      role: "Intern Nurse (6-Month)",
       detail:
         "Completed a six-month internship applying clinical knowledge and patient care skills in a teaching hospital setting.",
     },
@@ -158,7 +213,7 @@ export const experience = {
       organization: "Bismillah Computer Training Center, Tangail",
       role: "Office Room Computer Operator",
       detail:
-        "Work as a office room computer operator for 4 months",
+        "Worked as an office room computer operator for 4 months.",
     },
   ],
 };
@@ -189,8 +244,16 @@ export const volunteering = {
       organization: "Nursilo",
       period: "Present",
       detail:
-        "Advocated for nursing education and training, collaborated with Nursilo in policy discussions, training, and healthcare reform initiatives.",
+        "Leads Nursilo's advocacy for nursing education and training, including policy discussions and healthcare reform initiatives.",
       icon: "Palette" as const,
+    },
+    {
+      role: "Medical Personnel",
+      organization: "Moshal Alo Trust",
+      period: "August 2024",
+      detail:
+        "Provided patient care at the Bonnyar Kanna 24 medical camp, a flood-relief effort with Moshal Alo Trust.",
+      icon: "HandHeart" as const,
     },
   ],
 };
@@ -366,6 +429,38 @@ export const certifications = {
       issuer: "Volunteer for Bangladesh",
       year: "2026",
     },
+    // Added from LinkedIn (Nov 2026) — strongest clinical certificates first.
+    {
+      title: "Advanced Cardiovascular Life Support (ACLS)",
+      issuer: "National Health Care Provider Solutions",
+      year: "January 2025",
+    },
+    {
+      title: "Introduction to Oxygen Therapy",
+      issuer: "World Health Organization",
+      year: "December 2024",
+    },
+    {
+      title:
+        "Mastering the Literature Review: Strategies for EBP, QI, and Research",
+      issuer: "Henry Ford Health & Michigan State University",
+      year: "August 2025",
+    },
+    {
+      title: "Bereavement Care",
+      issuer: "The Royal College of Midwives",
+      year: "October 2024",
+    },
+    {
+      title: "The Primary Palliative Care Special Edition",
+      issuer: "icddr,b",
+      year: "November 2024",
+    },
+    {
+      title: "Introduction to Good Clinical Laboratory Practice",
+      issuer: "The Global Health Network",
+      year: "September 2024",
+    },
   ],
 };
 
@@ -385,6 +480,32 @@ export const references = {
         "During his time in the clinical wards and operation theater rotations, Tanvir showed remarkable adaptability and a keen eagerness to learn. He communicates effectively, works seamlessly within a multidisciplinary team, and always prioritizes patient safety. He will be a valuable asset to any medical unit.",
       name: "Mosharof Hossain",
       role: "Nursing Instructor, Nursing and Midwifery College, Tangail",
+    },
+    // Added from LinkedIn recommendations (Nov 2026) — verbatim excerpts;
+    // full texts are on his LinkedIn profile.
+    {
+      quote:
+        "I am delighted to recommend Tanvir Ahmad as a compassionate, hardworking, and dedicated nurse. Having had the opportunity to witness his professionalism and commitment to patient care, I can confidently say that he is an exceptional healthcare provider who genuinely prioritizes the well-being of others. Tanvir is not only highly skilled in his clinical duties but also has a natural ability to connect with patients, offering them both comfort and confidence during their treatment.",
+      name: "Md Wajed",
+      role: "Registered Nurse · Mentor",
+    },
+    {
+      quote:
+        "I am pleased to recommend Tanvir Ahmad, with whom I had the pleasure of working for three years at our nursing college. Tanvir is an exceptionally creative, proactive, and quick learner. His ability to grasp complex concepts swiftly and apply them effectively in practical scenarios is truly commendable. Tanvir's dedication to his work and his proactive approach have always stood out. He consistently demonstrated a strong commitment to excellence and a genuine passion for nursing.",
+      name: "MD Faridul Islam",
+      role: "Registered Nurse · Mentor",
+    },
+    {
+      quote:
+        "I had the pleasure of working closely with Tanvir Ahmed during Moshal Alo Trust's flood relief project in Feni, Bangladesh, in 2024. In his role as a medical professional offering first aid support to those in need, Tanvir consistently demonstrated remarkable skill, unwavering dedication, and genuine compassion. His ability to remain calm under pressure and his thorough approach to addressing each case were truly commendable.",
+      name: "Tanzil Amin Shuvo",
+      role: "Founding Chairman, Moshal Alo Trust",
+    },
+    {
+      quote:
+        "It's a pleasure to recommend Tanvir Ahmad Vai, someone I've had the privilege to work with and learn from. His professionalism and strategic thinking make him stand out in any team or organization he's part of. Tanvir Vai is not only a dedicated and results-driven professional but also someone who inspires those around him with his calm demeanor and solution-focused mindset.",
+      name: "Puza Rani Dev",
+      role: "MSS in Sociology, Khulna University · Social Researcher",
     },
   ],
 };
