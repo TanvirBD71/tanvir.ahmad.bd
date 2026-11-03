@@ -510,6 +510,24 @@ export const references = {
       name: "Puza Rani Dev",
       role: "MSS in Sociology, Khulna University · Social Researcher",
     },
+    {
+      quote:
+        "I had the privilege of working alongside Tanvir Bhai during our time at Let's Spark BD, where he initially served in the HR department and later transitioned to a different role within the organization. From day one, Tanvir Bhai stood out not just as a colleague, but as someone you could always count on — thoughtful, reliable, and deeply committed to his responsibilities.",
+      name: "Shaon Debnath",
+      role: "Colleague, Let's Spark BD",
+    },
+    {
+      quote:
+        "I had the pleasure of working alongside Tanvir Ahmed for around 6 months in the Human Resources department at Let's Spark BD, where we both served as HR interns. Throughout our time together, Tanvir consistently demonstrated professionalism, dedication, and a proactive attitude toward learning and teamwork. Tanvir quickly became known for his clear communication, strong organizational skills, and genuine interest in people management.",
+      name: "Sudipta Barman",
+      role: "HR Intern Colleague, Let's Spark BD",
+    },
+    {
+      quote:
+        "It is my pleasure to recommend Tanvir Ahmad, a talented student nurse and an exceptional individual I have had the privilege of knowing as a classmate and collaborator in various college events. Tanvir's dedication to his studies and his ability to assist and support others are truly remarkable.",
+      name: "Md Jahidul",
+      role: "Student Nurse · Classmate",
+    },
   ],
 };
 
