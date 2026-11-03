@@ -394,42 +394,9 @@ export const gallery: {
 export const certifications = {
   eyebrow: "Credentials",
   title: "Certifications & workshops",
-  description: "Recognitions spanning clinical learning and creative craft.",
+  description: "Clinical credentials first, with additional training below.",
+  // Clinical certifications and nursing workshops, strongest first.
   items: [
-    {
-      title: "National Skill Standard Basic course (360 hrs) - Computer Office Application",
-      issuer: "National Skill Standard",
-      year: "July – December 2022",
-    },
-    {
-      title: "Introduction to 2D Animation",
-      issuer: "Grameenphone Academy",
-      year: "2026",
-    },
-    {
-      title:
-        "National Nursing Workshop 2026: Advancing Excellence in Critical Care Nursing",
-      issuer: "Unico Hospitals PLC",
-      year: "2026",
-    },
-    {
-      title: "Infection Prevention & Control (IPC) Short Course",
-      issuer: "Safra Nursing School",
-      year: "24 July 2026",
-    },
-    {
-      title:
-        "Capacity Strengthening Trainings (COPD, PPH, Cancer Care, Physiotherapy & Self-Breast Examination)",
-      issuer: "Nursing & Midwifery College, Tangail — with Elizabeth Anne McLellan",
-      year: "October 2025",
-    },
-    {
-      title:
-        "Connecting the Dots: Strengthening Volunteer for Bangladesh regional youth development workshop",
-      issuer: "Volunteer for Bangladesh",
-      year: "2026",
-    },
-    // Added from LinkedIn (Nov 2026) — strongest clinical certificates first.
     {
       title: "Advanced Cardiovascular Life Support (ACLS)",
       issuer: "National Health Care Provider Solutions",
@@ -441,15 +408,21 @@ export const certifications = {
       year: "December 2024",
     },
     {
-      title:
-        "Mastering the Literature Review: Strategies for EBP, QI, and Research",
-      issuer: "Henry Ford Health & Michigan State University",
-      year: "August 2025",
+      title: "Infection Prevention & Control (IPC) Short Course",
+      issuer: "Safra Nursing School",
+      year: "24 July 2026",
     },
     {
-      title: "Bereavement Care",
-      issuer: "The Royal College of Midwives",
-      year: "October 2024",
+      title:
+        "National Nursing Workshop 2026: Advancing Excellence in Critical Care Nursing",
+      issuer: "Unico Hospitals PLC",
+      year: "2026",
+    },
+    {
+      title:
+        "Capacity Strengthening Trainings (COPD, PPH, Cancer Care, Physiotherapy & Self-Breast Examination)",
+      issuer: "Nursing & Midwifery College, Tangail — with Elizabeth Anne McLellan",
+      year: "October 2025",
     },
     {
       title: "The Primary Palliative Care Special Edition",
@@ -457,9 +430,39 @@ export const certifications = {
       year: "November 2024",
     },
     {
+      title: "Bereavement Care",
+      issuer: "The Royal College of Midwives",
+      year: "October 2024",
+    },
+    {
+      title:
+        "Mastering the Literature Review: Strategies for EBP, QI, and Research",
+      issuer: "Henry Ford Health & Michigan State University",
+      year: "August 2025",
+    },
+    {
       title: "Introduction to Good Clinical Laboratory Practice",
       issuer: "The Global Health Network",
       year: "September 2024",
+    },
+  ],
+  otherTitle: "Other training",
+  otherItems: [
+    {
+      title:
+        "Connecting the Dots: Strengthening Volunteer for Bangladesh regional youth development workshop",
+      issuer: "Volunteer for Bangladesh",
+      year: "2026",
+    },
+    {
+      title: "National Skill Standard Basic course (360 hrs) - Computer Office Application",
+      issuer: "National Skill Standard",
+      year: "July – December 2022",
+    },
+    {
+      title: "Introduction to 2D Animation",
+      issuer: "Grameenphone Academy",
+      year: "2026",
     },
   ],
 };
