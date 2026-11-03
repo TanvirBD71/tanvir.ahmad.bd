@@ -1,34 +1,42 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { ChevronLeft, ChevronRight, Quote } from "lucide-react";
 import MotionSection from "@/components/MotionSection";
 import SectionHeading from "@/components/SectionHeading";
 import { references } from "@/lib/content";
 
+const AUTOPLAY_MS = 4000;
+const RESUME_AFTER_MS = 6000;
+
+const childLeft = (track: HTMLUListElement, i: number) =>
+  (track.children[i] as HTMLElement).offsetLeft - track.offsetLeft;
+const stepSize = (track: HTMLUListElement) =>
+  track.children.length > 1 ? childLeft(track, 1) - childLeft(track, 0) : 0;
+const setWidth = (track: HTMLUListElement, count: number) =>
+  track.children.length > count ? childLeft(track, count) - childLeft(track, 0) : 0;
+
 export default function References() {
   const reduceMotion = useReducedMotion();
   const trackRef = useRef<HTMLUListElement>(null);
+  const resumeTimer = useRef<number | null>(null);
   const [active, setActive] = useState(0);
+  const [paused, setPaused] = useState(false);
+  const [inView, setInView] = useState(false);
   const count = references.items.length;
+  // The list is rendered twice; scrolling past the first set wraps
+  // seamlessly back by one set width, giving an endless loop.
+  const loopItems = [...references.items, ...references.items];
 
-  const scrollToIndex = (index: number) => {
-    const track = trackRef.current;
-    if (!track) return;
-    const clamped = Math.max(0, Math.min(index, count - 1));
-    const child = track.children[clamped] as HTMLElement | undefined;
-    if (child) {
-      track.scrollTo({
-        left: child.offsetLeft - track.offsetLeft,
-        behavior: reduceMotion ? "auto" : "smooth",
-      });
+  const wrapIfNeeded = (track: HTMLUListElement) => {
+    const width = setWidth(track, count);
+    if (width > 0 && track.scrollLeft - childLeft(track, 0) >= width) {
+      track.scrollLeft -= width;
     }
   };
 
-  const handleScroll = () => {
-    const track = trackRef.current;
-    if (!track) return;
+  const updateActive = (track: HTMLUListElement) => {
     let nearest = 0;
     let best = Infinity;
     Array.from(track.children).forEach((el, i) => {
@@ -40,11 +48,97 @@ export default function References() {
         nearest = i;
       }
     });
-    setActive(nearest);
+    setActive(nearest % count);
   };
 
+  const handleScroll = () => {
+    const track = trackRef.current;
+    if (!track) return;
+    wrapIfNeeded(track);
+    updateActive(track);
+  };
+
+  const pauseBriefly = () => {
+    setPaused(true);
+    if (resumeTimer.current) window.clearTimeout(resumeTimer.current);
+    resumeTimer.current = window.setTimeout(
+      () => setPaused(false),
+      RESUME_AFTER_MS,
+    );
+  };
+
+  const goBy = (dir: 1 | -1) => {
+    const track = trackRef.current;
+    if (!track) return;
+    pauseBriefly();
+    const step = stepSize(track);
+    if (step === 0) return;
+    // Stepping back from the very start: jump one set forward first so
+    // there is a previous card to slide to.
+    if (dir < 0 && track.scrollLeft - childLeft(track, 0) < step / 2) {
+      track.scrollLeft += setWidth(track, count);
+    }
+    track.scrollBy({
+      left: dir * step,
+      behavior: reduceMotion ? "auto" : "smooth",
+    });
+  };
+
+  const goTo = (index: number) => {
+    const track = trackRef.current;
+    if (!track) return;
+    pauseBriefly();
+    const width = setWidth(track, count);
+    const step = stepSize(track);
+    if (width === 0 || step === 0) return;
+    const origin = childLeft(track, 0);
+    const current = track.scrollLeft - origin;
+    // Choose whichever copy of the target card is closer, so dots can
+    // move the carousel in either direction without a long rewind.
+    let target = index * step;
+    if (Math.abs(target + width - current) < Math.abs(target - current)) {
+      target += width;
+    }
+    track.scrollTo({
+      left: origin + target,
+      behavior: reduceMotion ? "auto" : "smooth",
+    });
+  };
+
+  // Only autoplay while the section is on screen.
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setInView(entry.isIntersecting),
+      { threshold: 0.2 },
+    );
+    observer.observe(track);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (reduceMotion || paused || !inView) return;
+    const id = window.setInterval(() => {
+      const track = trackRef.current;
+      if (!track || document.hidden) return;
+      const step = stepSize(track);
+      if (step > 0) {
+        track.scrollBy({ left: step, behavior: "smooth" });
+      }
+    }, AUTOPLAY_MS);
+    return () => window.clearInterval(id);
+  }, [reduceMotion, paused, inView]);
+
+  useEffect(
+    () => () => {
+      if (resumeTimer.current) window.clearTimeout(resumeTimer.current);
+    },
+    [],
+  );
+
   const buttonClass =
-    "inline-flex h-10 w-10 items-center justify-center rounded-full border border-teal/30 text-teal transition hover:bg-teal hover:text-white disabled:cursor-not-allowed disabled:opacity-35 disabled:hover:bg-transparent disabled:hover:text-teal";
+    "inline-flex h-10 w-10 items-center justify-center rounded-full border border-teal/30 text-teal transition hover:bg-teal hover:text-white";
 
   return (
     <MotionSection
@@ -70,12 +164,16 @@ export default function References() {
           <ul
             ref={trackRef}
             onScroll={handleScroll}
+            onPointerDown={pauseBriefly}
+            onMouseEnter={() => setPaused(true)}
+            onMouseLeave={() => setPaused(false)}
             aria-label="Recommendations carousel"
             className="flex snap-x snap-mandatory gap-5 overflow-x-auto pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
           >
-            {references.items.map((item) => (
+            {loopItems.map((item, i) => (
               <li
-                key={item.name}
+                key={`${item.name}-${i}`}
+                aria-hidden={i >= count ? true : undefined}
                 className="relative w-[85%] flex-none snap-start sm:w-[47%] lg:w-[32.5%]"
               >
                 <div className="glass-panel relative flex h-full flex-col rounded-3xl p-6">
@@ -106,8 +204,7 @@ export default function References() {
           <div className="mt-6 flex items-center justify-center gap-4">
             <button
               type="button"
-              onClick={() => scrollToIndex(active - 1)}
-              disabled={active === 0}
+              onClick={() => goBy(-1)}
               aria-label="Previous recommendation"
               className={buttonClass}
             >
@@ -118,7 +215,7 @@ export default function References() {
                 <button
                   key={item.name}
                   type="button"
-                  onClick={() => scrollToIndex(i)}
+                  onClick={() => goTo(i)}
                   aria-label={`Go to recommendation ${i + 1} from ${item.name}`}
                   aria-current={i === active ? "true" : undefined}
                   className={`h-2.5 rounded-full transition-all ${
@@ -131,8 +228,7 @@ export default function References() {
             </div>
             <button
               type="button"
-              onClick={() => scrollToIndex(active + 1)}
-              disabled={active === count - 1}
+              onClick={() => goBy(1)}
               aria-label="Next recommendation"
               className={buttonClass}
             >
