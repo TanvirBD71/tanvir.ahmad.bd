@@ -13,9 +13,17 @@ import { site } from "@/lib/content";
 
 export const PRELOADER_DONE_EVENT = "portfolio-preloader-done";
 
-const MIN_MS = 2000;
-const MAX_MS = 3600;
-const EXIT_MS = 1100;
+// Timings retuned Nov 2026: the original 2,000 ms minimum + 1,100 ms exit
+// kept the preloader on screen for 3.1 s even on a fast connection (up to
+// 4.7 s when the headshot was slow), and that wait only starts after the
+// page has hydrated — so it felt slower as the page grew. These values keep
+// a brief branded intro without making visitors wait on it.
+const MIN_MS = 900;
+const MAX_MS = 1800;
+const EXIT_MS = 550;
+// Reloads within the same tab session skip most of the intro.
+const SEEN_KEY = "portfolio-preloader-seen";
+const SEEN_MS = 300;
 
 const PRELOADER_ICONS = [
   {
@@ -62,13 +70,25 @@ export default function Preloader() {
   const finish = () => {
     if (finishedRef.current) return;
     finishedRef.current = true;
+    try {
+      window.sessionStorage.setItem(SEEN_KEY, "1");
+    } catch {
+      // Storage unavailable (private mode etc.) — the intro just replays.
+    }
     window.dispatchEvent(new Event(PRELOADER_DONE_EVENT));
     setShow(false);
   };
 
   useEffect(() => {
-    if (reduceMotion) {
-      const t = window.setTimeout(finish, 400);
+    let seen = false;
+    try {
+      seen = window.sessionStorage.getItem(SEEN_KEY) === "1";
+    } catch {
+      seen = false;
+    }
+
+    if (reduceMotion || seen) {
+      const t = window.setTimeout(finish, reduceMotion ? 400 : SEEN_MS);
       return () => window.clearTimeout(t);
     }
 
@@ -111,8 +131,9 @@ export default function Preloader() {
               ? { opacity: 0 }
               : {
                   opacity: 0,
-                  scale: 1.04,
-                  filter: "blur(10px)",
+                  scale: 1.02,
+                  // No blur filter here: animating a full-screen blur is
+                  // expensive on phone GPUs and made the exit feel laggy.
                 }
           }
           transition={{

@@ -11,6 +11,7 @@ const plusJakarta = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://tanvir.ahmad.bd"),
   title: "Tanvir Ahmad | Registered Nurse",
   description:
     "Professional portfolio of Tanvir Ahmad, a Registered Nurse experienced in patient-centered care, surgical assistance, and community healthcare initiatives in Tangail, Bangladesh.",

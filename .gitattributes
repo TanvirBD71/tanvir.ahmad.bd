@@ -1,0 +1,12 @@
+# Keep line endings consistent (LF) on every machine, including Windows.
+# This project is built and deployed on Linux (Vercel), so LF avoids
+# CRLF/LF churn and the "LF will be replaced by CRLF" warnings.
+* text=auto eol=lf
+
+# Images and PDFs are binary — never let Git rewrite them.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.pdf binary
